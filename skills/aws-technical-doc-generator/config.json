@@ -1,0 +1,65 @@
+{
+  "skill_name": "aws-technical-doc-generator",
+  "version": "1.0.0",
+  "default_settings": {
+    "default_region": "us-east-1",
+    "output_format": "markdown",
+    "detail_level": "comprehensive"
+  },
+  "scan_configuration": {
+    "services": [
+      "ec2",
+      "ebs",
+      "elb",
+      "rds",
+      "s3",
+      "vpc",
+      "iam",
+      "cloudwatch",
+      "autoscaling",
+      "dynamodb",
+      "efs",
+      "lambda"
+    ],
+    "include_tags": true,
+    "include_costs": false,
+    "parallel_scanning": true,
+    "max_workers": 5
+  },
+  "document_sections": {
+    "required": [
+      "executive_summary",
+      "network_architecture",
+      "compute_resources",
+      "storage_resources",
+      "database_resources",
+      "load_balancing",
+      "security_configuration",
+      "monitoring"
+    ],
+    "optional": [
+      "backup_dr",
+      "cost_analysis",
+      "compliance",
+      "performance_metrics"
+    ]
+  },
+  "output_options": {
+    "formats": ["markdown", "docx", "pdf"],
+    "include_diagrams": false,
+    "include_appendices": true,
+    "sanitize_sensitive_data": true
+  },
+  "security": {
+    "mask_account_ids": false,
+    "mask_ip_addresses": false,
+    "exclude_iam_policies": false,
+    "read_only_required": true
+  },
+  "performance": {
+    "cache_results": true,
+    "cache_duration_minutes": 30,
+    "timeout_seconds": 300,
+    "retry_attempts": 3
+  }
+}

@@ -1,0 +1,62 @@
+{
+  "name": "cloud-sow-analyzer",
+  "displayName": "Cloud SOW Analyzer",
+  "version": "1.0.0",
+  "description": "Analyzes cloud migration Scope of Work (SOW) documents to identify risks, issues, and provide recommendations for AWS and Huawei Cloud migration projects",
+  "author": "Cloud Architecture Team",
+  "category": "cloud-architecture",
+  "tags": [
+    "cloud-migration",
+    "aws",
+    "huawei-cloud",
+    "risk-assessment",
+    "sow-analysis",
+    "architecture",
+    "migration-planning"
+  ],
+  "platforms": [
+    "github-copilot-cli",
+    "claude-code",
+    "codex"
+  ],
+  "triggerPhrases": [
+    "analyze sow",
+    "analyze scope of work",
+    "cloud migration analysis",
+    "sow risk assessment",
+    "migration risk analysis",
+    "analyze migration document",
+    "cloud sow review"
+  ],
+  "cloudProviders": [
+    "aws",
+    "huawei-cloud"
+  ],
+  "features": [
+    "SOW document parsing",
+    "Interactive clarification",
+    "Risk assessment with scoring matrix",
+    "Issue discovery and prioritization",
+    "Architecture analysis",
+    "Resource sizing validation",
+    "Cost estimation review",
+    "Markdown report generation",
+    "Multi-cloud support"
+  ],
+  "requirements": {
+    "optional": [
+      "pandoc",
+      "python-docx"
+    ]
+  },
+  "outputFormats": [
+    "markdown",
+    "pdf",
+    "html"
+  ],
+  "riskLevel": "safe",
+  "source": "community",
+  "license": "MIT",
+  "created": "2026-02-21",
+  "updated": "2026-02-21"
+}

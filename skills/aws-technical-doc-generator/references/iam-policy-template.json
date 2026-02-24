@@ -1,0 +1,48 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "ReadOnlyAccessForDocumentation",
+      "Effect": "Allow",
+      "Action": [
+        "ec2:Describe*",
+        "ec2:Get*",
+        "elasticloadbalancing:Describe*",
+        "rds:Describe*",
+        "rds:List*",
+        "s3:List*",
+        "s3:GetBucket*",
+        "s3:GetObject",
+        "vpc:Describe*",
+        "iam:List*",
+        "iam:Get*",
+        "cloudwatch:Describe*",
+        "cloudwatch:List*",
+        "cloudwatch:Get*",
+        "cloudtrail:Describe*",
+        "cloudtrail:List*",
+        "cloudtrail:Get*",
+        "autoscaling:Describe*",
+        "dynamodb:Describe*",
+        "dynamodb:List*",
+        "efs:Describe*",
+        "backup:List*",
+        "backup:Describe*",
+        "lambda:List*",
+        "lambda:Get*",
+        "sns:List*",
+        "sns:Get*",
+        "sqs:List*",
+        "sqs:Get*",
+        "route53:List*",
+        "route53:Get*",
+        "cloudfront:List*",
+        "cloudfront:Get*",
+        "elasticache:Describe*",
+        "redshift:Describe*",
+        "sts:GetCallerIdentity"
+      ],
+      "Resource": "*"
+    }
+  ]
+}

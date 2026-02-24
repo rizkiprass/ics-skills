@@ -1,0 +1,27 @@
+# AWS Technical Document Generator - Python Dependencies
+
+# AWS SDK for Python
+boto3>=1.26.0
+
+# For JSON handling (built-in, listed for reference)
+# json
+
+# For date/time handling (built-in, listed for reference)
+# datetime
+
+# Optional: For enhanced document generation
+# markdown>=3.4.0
+# python-docx>=0.8.11
+# reportlab>=3.6.0
+
+# Optional: For PDF generation
+# weasyprint>=57.0
+
+# Optional: For progress bars
+# tqdm>=4.65.0
+
+# Optional: For better CLI output
+# rich>=13.0.0
+
+# Optional: For configuration management
+# pyyaml>=6.0
