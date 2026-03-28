@@ -136,8 +136,8 @@ python scripts/convert_md_to_docx.py analysis-report.md --output custom-name.doc
 ## Requirements
 
 - File SOW dalam format DOCX
-- Pandoc atau python-docx untuk ekstraksi konten (optional)
-- `python-docx` untuk konversi laporan ke DOCX (optional, install: `pip install python-docx`)
+- Pandoc untuk ekstraksi konten SOW dan export ke PDF/HTML (optional)
+- `python-docx` untuk membaca SOW dan konversi laporan ke DOCX (optional, install: `pip install python-docx`)
 - Informasi tambahan tentang project context
 
 ## Tips
