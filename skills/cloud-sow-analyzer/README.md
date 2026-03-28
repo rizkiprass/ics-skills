@@ -10,7 +10,8 @@ Cloud SOW Analyzer membantu Cloud Architect menganalisis dokumen SOW untuk proye
 - Menanyakan informasi yang kurang sebelum melakukan analisis
 - Mengidentifikasi risiko untuk migration dan implementation
 - Menemukan potensi masalah di awal proyek
-- Menghasilkan laporan analisis lengkap dalam format markdown
+- Menghasilkan laporan analisis lengkap dalam format Markdown
+- Mengonversi laporan Markdown ke dokumen Word (.docx) secara otomatis
 
 ## Kapan Menggunakan Skill Ini
 
@@ -59,7 +60,11 @@ Skill akan:
 
 ### Output
 
-Skill akan menghasilkan file markdown dengan struktur:
+Skill akan menghasilkan:
+- File Markdown (.md) dengan laporan analisis lengkap
+- File Word (.docx) hasil konversi otomatis dari laporan Markdown
+
+Struktur laporan:
 - Executive Summary
 - SOW Analysis (completeness check)
 - Risk Assessment (dengan scoring matrix)
@@ -91,6 +96,29 @@ Skill akan menghasilkan file markdown dengan struktur:
 3. Validate resource sizing (High)
 ```
 
+## Konversi DOCX
+
+Setelah laporan Markdown dibuat, skill secara otomatis mengonversinya ke format Word (.docx) dengan formatting profesional:
+
+- Heading dengan hierarki yang sesuai
+- Tabel dengan header berwarna dan alternating rows
+- Emoji indikator risiko (🔴🟠🟡🟢) dengan fallback teks berwarna
+- Checklist dengan simbol ☐/☑
+- Code block dengan font monospace
+- Header/footer halaman dengan judul dan nomor halaman
+
+Jika konversi gagal (misalnya `python-docx` belum terinstal), workflow tetap lanjut — laporan Markdown tetap tersedia.
+
+### Konversi Manual
+
+```bash
+# Konversi file Markdown yang sudah ada
+python scripts/convert_md_to_docx.py analysis-report.md
+
+# Dengan path output custom
+python scripts/convert_md_to_docx.py analysis-report.md --output custom-name.docx
+```
+
 ## Cloud Provider Support
 
 - **AWS**: Full support dengan AWS-specific best practices
@@ -103,11 +131,13 @@ Skill akan menghasilkan file markdown dengan struktur:
 3. **Multi-dimensional Analysis** - Technical, Operational, Security, Financial, Vendor risks
 4. **Actionable Recommendations** - Prioritized dengan timeline
 5. **Discovery Checklist** - Ready-to-use checklist untuk project kickoff
+6. **DOCX Export** - Konversi otomatis laporan Markdown ke Word (.docx)
 
 ## Requirements
 
 - File SOW dalam format DOCX
 - Pandoc atau python-docx untuk ekstraksi konten (optional)
+- `python-docx` untuk konversi laporan ke DOCX (optional, install: `pip install python-docx`)
 - Informasi tambahan tentang project context
 
 ## Tips

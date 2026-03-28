@@ -52,7 +52,8 @@
   "outputFormats": [
     "markdown",
     "pdf",
-    "html"
+    "html",
+    "docx"
   ],
   "riskLevel": "safe",
   "source": "community",

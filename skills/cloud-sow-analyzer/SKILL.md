@@ -4,7 +4,7 @@ description: "Analyzes cloud migration Scope of Work (SOW) documents to identify
 version: 1.0.0
 author: Cloud Architecture Team
 created: 2026-02-21
-updated: 2026-02-21
+updated: 2026-03-28
 platforms: [github-copilot-cli, claude-code, codex]
 category: cloud-architecture
 tags: [cloud-migration, aws, risk-assessment, sow-analysis]
@@ -543,6 +543,26 @@ Buat laporan komprehensif dalam format markdown dengan struktur berikut:
 ```
 
 
+### Phase 5B: Convert to DOCX
+
+Setelah laporan Markdown berhasil dibuat di Phase 5, konverter secara otomatis mengonversi file `.md` menjadi dokumen Word (`.docx`) menggunakan library `python-docx`. File DOCX disimpan di direktori yang sama dengan nama file yang sama (ekstensi `.docx` menggantikan `.md`).
+
+**Perilaku:**
+- Jika konversi berhasil, tampilkan pesan konfirmasi dengan path file DOCX
+- Jika konversi gagal (misalnya `python-docx` tidak terinstal atau error lain), workflow tetap lanjut ke Phase 6 tanpa interupsi — laporan Markdown tetap tersedia
+- File Markdown sumber tidak pernah dimodifikasi oleh proses konversi
+
+**Konversi Manual:**
+
+Untuk mengonversi ulang laporan yang sudah ada secara manual:
+
+```bash
+python scripts/convert_md_to_docx.py <file.md>
+
+# Atau dengan path output custom:
+python scripts/convert_md_to_docx.py <file.md> --output <output.docx>
+```
+
 ### Phase 6: Review & Refinement
 
 Setelah generate report, lakukan review dengan user:
@@ -551,11 +571,13 @@ Setelah generate report, lakukan review dengan user:
 
 ```
 📊 Analysis report telah dibuat!
+📄 Laporan Markdown: analysis-report.md
+📎 Dokumen DOCX: analysis-report.docx
 
 Apakah Anda ingin:
 1. Review report sekarang
 2. Tambahkan analisis untuk area tertentu
-3. Export ke format lain (PDF, HTML)
+3. Export ke format lain (PDF, HTML) — file DOCX sudah tersedia
 4. Selesai
 
 Pilihan Anda: [1-4]
@@ -567,6 +589,9 @@ Pilihan Anda: [1-4]
 - Append ke report
 
 **If user chooses option 3:**
+
+File DOCX sudah otomatis dibuat di Phase 5B. Untuk format lain:
+
 ```bash
 # Convert to PDF using pandoc
 pandoc analysis-report.md -o analysis-report.pdf \
@@ -579,6 +604,9 @@ pandoc analysis-report.md -o analysis-report.html \
   --standalone \
   --toc \
   --css=style.css
+
+# Konversi ulang ke DOCX secara manual (jika diperlukan)
+python scripts/convert_md_to_docx.py analysis-report.md
 ```
 
 ## Cloud Provider Specific Analysis

@@ -13,6 +13,10 @@ A collection of AI agent skills for multiple platforms — Kiro, GitHub Copilot 
 | [cloud-sow-analyzer](skills/cloud-sow-analyzer/) | Analyze cloud migration Scope of Work (SOW) documents to identify risks, issues, and recommendations | cloud-architecture | GitHub Copilot CLI, Claude Code, Codex |
 | [docx](skills/docx/) | Create, read, edit, and manipulate Word documents (.docx files) | document-processing | Kiro, GitHub Copilot CLI, Claude Code, Codex |
 
+## Prerequisites
+
+Before using the skills in this repository, make sure to install [Pandoc](https://pandoc.org/installing.html) on your system.
+
 ## How to Use
 
 Each skill is self-contained in its own directory under `skills/`. The `SKILL.md` file is the primary file — it contains the AI agent instructions and metadata. Choose the section below that matches your platform.
