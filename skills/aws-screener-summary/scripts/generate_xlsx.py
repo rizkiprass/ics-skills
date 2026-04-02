@@ -146,6 +146,49 @@ def enrich_resources_list(resources_raw, scan_data):
             details.append(f"[{rid}]\n{detail}")
     return "\n\n".join(details)
 
+def enrich_from_screener_detail(resources_raw, service, region, screener_data):
+    """Enrich resources using api-full.json detail section as fallback when no live scan data.
+    Extracts per-resource findings (e.g. all checks flagged for each SG) from the detail section."""
+    svc_data = screener_data.get(service, {})
+    detail_section = svc_data.get("detail", {})
+    if not detail_section:
+        return ""
+
+    details = []
+    for r in resources_raw:
+        rid = get_resource_id(r)
+        # Build the key as it appears in detail section (e.g. "SG::sg-xxx", "EC2::i-xxx")
+        resource_key = str(r).replace('<b>', '').replace('</b>', '').strip()
+
+        # Search across region keys in detail section
+        resource_findings = None
+        for region_key, region_data in detail_section.items():
+            if not isinstance(region_data, dict):
+                continue
+            if resource_key in region_data:
+                resource_findings = region_data[resource_key]
+                break
+
+        if not resource_findings or not isinstance(resource_findings, dict):
+            continue
+
+        lines = [f"{rid}:"]
+        for check_name, check_info in resource_findings.items():
+            if not isinstance(check_info, dict):
+                continue
+            short = check_info.get("shortDesc", check_name)
+            value = check_info.get("value", "")
+            crit = check_info.get("criticality", "")
+            sev = SEVERITY_MAP.get(crit, crit)
+            if value:
+                lines.append(f"  - [{sev}] {short}: {value}")
+            else:
+                lines.append(f"  - [{sev}] {short}")
+        if len(lines) > 1:  # has findings beyond the header
+            details.append("\n".join(lines))
+
+    return "\n\n".join(details)
+
 def parse_findings(data, severities, scan_data=None):
     findings = {}
     for service, svc_data in data.items():
@@ -157,7 +200,11 @@ def parse_findings(data, severities, scan_data=None):
             if pillar not in PILLAR_MAP: continue
             affected = check.get("__affectedResources", {})
             for region, resources in affected.items():
+                # Primary: enrich from live scan data
                 resource_details = enrich_resources_list(resources, scan_data) if scan_data else ""
+                # Fallback: enrich from api-full.json detail section
+                if not resource_details:
+                    resource_details = enrich_from_screener_detail(resources, service, region, data)
                 entry = {
                     "service": service,
                     "check": check_name,
