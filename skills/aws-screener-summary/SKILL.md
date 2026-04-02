@@ -103,7 +103,7 @@ python .kiro/skills/aws-screener-summary/scripts/generate_xlsx.py <api-full.json
 | Severity | High, Medium, Low, or Informational |
 | Region | AWS region or GLOBAL |
 | Affected Resources | Resource names with IDs resolved from AWS scan (e.g. `IDAS-Prod-PRP (i-044cbc7e32e4dea1d)`). Falls back to raw IDs if scan data is unavailable |
-| Resource Details | Enriched info from live AWS scan (SG rules, EC2 details, IAM policies, etc.) |
+| Resource Details | Enriched info from live AWS scan (SG rules, EC2 details, IAM policies, etc.). When no scan data is available, automatically falls back to per-resource findings from api-full.json detail section (all checks flagged per resource with severity and values) |
 | Checklist | Dropdown: Done, In Progress, Not Started, N/A |
 | Note | Free text for reviewer notes |
 
@@ -131,6 +131,7 @@ The scanner maps resource IDs from service screener findings to live AWS data:
 ## Notes
 
 - Strip HTML tags from descriptions using regex
-- If AWS scan is unavailable, the Resource Details column will be empty
+- If AWS scan is unavailable, Resource Details column is automatically enriched from api-full.json detail section (per-resource findings with severity and values)
+- Live AWS scan data takes priority over api-full.json detail enrichment when both are available
 - Default severity filter is "H" (High) unless user specifies otherwise
 - The `.env` file should be in `.gitignore` to avoid committing credentials
